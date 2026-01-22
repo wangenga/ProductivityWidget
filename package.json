@@ -1,0 +1,24 @@
+{
+  "name": "productivitywidget",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wangenga/ProductivityWidget.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/wangenga/ProductivityWidget/issues"
+  },
+  "homepage": "https://github.com/wangenga/ProductivityWidget#readme",
+  "devDependencies": {
+    "electron": "^40.0.0"
+  }
+}

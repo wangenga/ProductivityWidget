@@ -1,0 +1,23 @@
+# 1. Dependencies
+node_modules/
+
+# 2. Build Output
+dist/
+build/
+out/
+
+# 3. Logs
+npm-debug.log
+yarn-error.log
+pnpm-debug.log*
+
+# 4. OS System Files
+.DS_Store
+Thumbs.db
+
+# 5. Editor Settings
+.vscode/
+.idea/
+
+# 6. Environment Variables
+.env
