@@ -1,7 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 function createWindow() {
     const win = new BrowserWindow({
-        width: 350, height: 600, frame: false, transparent: true,
+        width: 300, height: 400, frame: false, transparent: true,
         webPreferences: { nodeIntegration: true, contextIsolation: false }
     });
     win.loadFile('index.html');

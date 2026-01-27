@@ -8,7 +8,7 @@ body {
     padding: 10px; /* Padding creates space for the shadow */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background: transparent; /* CRITICAL: Allows the rounded corners to show */
-    height: 100vh;
+    height: 70vh;
     overflow: hidden; /* Prevents scrollbars on the body itself */
 }
 
@@ -18,7 +18,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #282c34;
+    background: #282c30;
     color: white;
     padding: 12px 15px;
     border-radius: 12px 12px 0 0;
