@@ -11,6 +11,13 @@ function addTask() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     input.value = ''; render();
 }
+
+function removeTask() {
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    tasks.splice(index, 1); // Remove 1 item at this index
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    render();
+}
 window.toggle = (i) => {
     const tasks = JSON.parse(localStorage.getItem('tasks'));
     tasks[i].done = !tasks[i].done;

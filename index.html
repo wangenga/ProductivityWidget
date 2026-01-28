@@ -6,7 +6,9 @@
         <span>Focus</span><button id="close-btn" onclick="window.close()">×</button>
     </div>
     <div class="container" style="padding: 20px; background: rgba(255,255,255,0.95); height: 50vh;">
-        <ul id="taskList"></ul>
+        <ul id="taskList">
+            <button onclick="removeTask($,{index})">Delete</button>
+        </ul>
         <input type="text" id="taskInput" placeholder="New Task..." style="width: 70%; padding: 5px;">
         <button onclick="addTask()">Add</button>
         
