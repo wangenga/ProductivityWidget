@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/wangenga/ProductivityWidget#readme",
   "devDependencies": {
-    "electron": "^40.0.0"
+    "electron": "^40.0.0",
+    "electron-reload": "^2.0.0-alpha.1"
   }
 }
