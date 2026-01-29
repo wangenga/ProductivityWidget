@@ -81,7 +81,8 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
 }
 
-button {
+/* 1. The Big "Add" Button */
+.add-btn {
     background: #007AFF;
     color: white;
     border: none;
@@ -90,10 +91,45 @@ button {
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
+    height: 35px; /* Fixed height for consistency */
 }
 
-button:hover {
+.add-btn:hover {
     background: #0062cc;
+}
+
+/* 2. Base Style for Icon Buttons (Resets everything) */
+.icon-btn {
+    background: transparent; /* No blue background */
+    border: none;
+    padding: 0;      /* No wide padding */
+    width: 28px;     /* Small, fixed square */
+    height: 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;           /* Centers the icon perfectly */
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+/* 3. Specific Styles (Edit vs Delete) */
+.edit-btn {
+    color: #555; /* Neutral gray */
+}
+.edit-btn:hover {
+    background: #eef5ff; /* Light blue fade */
+    color: #007AFF;
+}
+
+.delete-btn {
+    color: #ff3b30; /* Red */
+    font-weight: bold;
+}
+.delete-btn:hover {
+    background: #ffe5e5; /* Light red fade */
+    color: #d70015;
 }
 
 /* 5. Task List */

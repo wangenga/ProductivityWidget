@@ -5,13 +5,31 @@ const ding = document.getElementById('ding');
 function render() {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     
-    // THIS IS WHERE THE BUTTON IS CREATED
     list.innerHTML = tasks.map((t, index) => `
-        <li>
+        <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            
             <span onclick="toggle(${index})" style="flex-grow:1; cursor:pointer; ${t.done ? 'text-decoration:line-through; color:gray' : ''}">
                 ${t.text}
             </span>
-            <button onclick="removeTask(${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">×</button>
+
+            
+
+            <div style="display: flex; gap: 2px; margin-left: 10px;">
+                
+                <button onclick="editTask(${index})" 
+                        class="icon-btn edit-btn" 
+                        title="Edit">
+                    ✎
+                </button>
+
+                <button onclick="removeTask(${index})" 
+                        class="icon-btn delete-btn" 
+                        title="Delete">
+                    ×
+                </button>
+                
+            </div>
+
         </li>
     `).join('');
 }
@@ -25,12 +43,24 @@ function addTask() {
     render();
 }
 
-// The Delete Function
+// 1. DELETE Function
 window.removeTask = (index) => {
     const tasks = JSON.parse(localStorage.getItem('tasks'));
     tasks.splice(index, 1);
     localStorage.setItem('tasks', JSON.stringify(tasks));
     render();
+};
+
+// 2. EDIT Function
+window.editTask = (index) => {
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    
+    // Move text back to input box
+    input.value = tasks[index].text;
+    input.focus();
+    
+    // Delete the old one (so we don't end up with duplicates)
+    removeTask(index);
 };
 
 window.toggle = (index) => {
