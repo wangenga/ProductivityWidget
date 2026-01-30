@@ -6,15 +6,21 @@ function render() {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     
     list.innerHTML = tasks.map((t, index) => `
-        <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+        <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; width: 100%;">
             
-            <span onclick="toggle(${index})" style="flex-grow:1; cursor:pointer; ${t.done ? 'text-decoration:line-through; color:gray' : ''}">
+            <span onclick="toggle(${index})" 
+                  style="flex: 1; 
+                         min-width: 0; 
+                         white-space: nowrap; 
+                         overflow: hidden; 
+                         text-overflow: ellipsis; 
+                         cursor: pointer; 
+                         padding-right: 10px;
+                         ${t.done ? 'text-decoration:line-through; color:gray' : ''}">
                 ${t.text}
             </span>
 
-            
-
-            <div style="display: flex; gap: 2px; margin-left: 10px;">
+            <div style="display: flex; gap: 2px; flex-shrink: 0;">
                 
                 <button onclick="editTask(${index})" 
                         class="icon-btn edit-btn" 
