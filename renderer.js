@@ -4,8 +4,14 @@ const ding = document.getElementById('ding');
 
 function render() {
     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+
+    let activeHTML = '';
+    let completedHTML = '';
+    let hasCompletedTasks = false;
     
-    list.innerHTML = tasks.map((t, index) => `
+    tasks.forEach((t, index) => {
+        
+        const taskHtml= `
         <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; width: 100%;">
             
             <span onclick="toggle(${index})" 
@@ -33,11 +39,22 @@ function render() {
                         title="Delete">
                     ×
                 </button>
-                
             </div>
 
-        </li>
-    `).join('');
+        </li>`;
+
+        if (t.done) {
+            completedHTML += taskHTML;
+            hasCompletedTasks = true;
+        } else {
+            activeHTML += taskHTML;
+        }
+    });
+
+    activeList.innerHTML = activeHTML;
+    completedList.innerHTML = completedHTML;
+
+    completedSection.style.display = hasCompletedTasks ? 'block' : 'none';
 }
 
 function addTask() {
