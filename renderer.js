@@ -1,9 +1,19 @@
-const list = document.getElementById('taskList');
+const activeList = document.getElementById('taskList')
+const completedList = document.getElementById('completedList');
+const completedSection = document.getElementById('completed-section');
 const input = document.getElementById('taskInput');
 const ding = document.getElementById('ding');
 
 function render() {
-    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+
+    let tasks;
+    try{
+        tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+        if (!Array.isArray(tasks)) throw new Error();
+    } catch (e) {
+        tasks = [];
+        localStorage.setItem('tasks', '[]');
+    }
 
     let activeHTML = '';
     let completedHTML = '';
@@ -11,7 +21,7 @@ function render() {
     
     tasks.forEach((t, index) => {
         
-        const taskHtml= `
+        const taskHTML= `
         <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; width: 100%;">
             
             <span onclick="toggle(${index})" 
@@ -51,10 +61,9 @@ function render() {
         }
     });
 
-    activeList.innerHTML = activeHTML;
-    completedList.innerHTML = completedHTML;
-
-    completedSection.style.display = hasCompletedTasks ? 'block' : 'none';
+    if (activeList) activeList.innerHTML = activeHTML;
+    if (completedList) completedList.innerHTML = completedHTML;
+    if (completedSection) completedSection.style.display = hasCompletedTasks ? 'block' : 'none';
 }
 
 function addTask() {

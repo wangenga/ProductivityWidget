@@ -5,16 +5,16 @@
 
 body {
     margin: 0;
-    padding: 10px; /* Padding creates space for the shadow */
+    padding: 10px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: transparent; /* CRITICAL: Allows the rounded corners to show */
-    height: 70vh;
-    overflow: hidden; /* Prevents scrollbars on the body itself */
+    background: transparent;
+    height: 100vh; /* RESTORED TO 100vh so nothing gets cut off */
+    overflow: hidden;
 }
 
-/* 2. The Header (Draggable Area) */
+/* 2. The Header */
 #drag-region {
-    -webkit-app-region: drag; /* MAKES THE WINDOW DRAGGABLE */
+    -webkit-app-region: drag;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -31,12 +31,11 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Close Button (Must be non-draggable to click) */
 #close-btn {
     -webkit-app-region: no-drag;
     background: transparent;
     border: none;
-    color: #ff5f57; /* Mac-style red */
+    color: #ff5f57;
     font-size: 24px;
     line-height: 1;
     cursor: pointer;
@@ -49,14 +48,14 @@ body {
 
 /* 3. Main Container */
 .container {
-    background: rgba(255, 255, 255, 0.92); /* Semi-transparent white */
-    backdrop-filter: blur(12px); /* Blurs the wallpaper behind it */
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
     padding: 20px;
-    height: calc(100vh - 65px); /* Full height minus header/padding */
+    height: calc(100vh - 65px);
     border-radius: 0 0 12px 12px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Deep shadow for pop */
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    display: flex;           /* CRITICAL for two lists */
+    flex-direction: column;  /* CRITICAL for two lists */
 }
 
 /* 4. Input Area */
@@ -64,6 +63,7 @@ body {
     display: flex;
     gap: 8px;
     margin-bottom: 20px;
+    flex-shrink: 0; /* Keep input fixed at top */
 }
 
 input {
@@ -81,7 +81,7 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
 }
 
-/* 1. The Big "Add" Button */
+/* BUTTONS */
 .add-btn {
     background: #007AFF;
     color: white;
@@ -91,80 +91,80 @@ input:focus {
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
-    height: 35px; /* Fixed height for consistency */
+    height: 35px;
 }
 
 .add-btn:hover {
     background: #0062cc;
 }
 
-/* 2. Base Style for Icon Buttons (Resets everything) */
 .icon-btn {
-    background: transparent; /* No blue background */
+    background: transparent;
     border: none;
-    padding: 0;      /* No wide padding */
-    width: 28px;     /* Small, fixed square */
+    padding: 0;
+    width: 28px;
     height: 28px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    display: flex;           /* Centers the icon perfectly */
+    display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
 }
 
-/* 3. Specific Styles (Edit vs Delete) */
-.edit-btn {
-    color: #555; /* Neutral gray */
-}
-.edit-btn:hover {
-    background: #eef5ff; /* Light blue fade */
-    color: #007AFF;
-}
+.edit-btn { color: #555; }
+.edit-btn:hover { background: #eef5ff; color: #007AFF; }
 
-.delete-btn {
-    color: #ff3b30; /* Red */
-    font-weight: bold;
-}
-.delete-btn:hover {
-    background: #ffe5e5; /* Light red fade */
-    color: #d70015;
-}
+.delete-btn { color: #ff3b30; font-weight: bold; }
+.delete-btn:hover { background: #ffe5e5; color: #d70015; }
 
-/* 5. Task List */
-ul {
+/* 5. LIST LOGIC (The Fix) */
+
+/* The main list takes all available space */
+#taskList {
     list-style: none;
     padding: 0;
     margin: 0;
-    overflow-y: auto; /* Scrollable list */
-    flex-grow: 1;
+    flex-grow: 1;      /* Grow to fill space */
+    overflow-y: auto;  /* Scroll if full */
+    min-height: 0;     /* Prevent overflow bugs */
 }
 
-/* Custom Scrollbar */
-ul::-webkit-scrollbar {
+/* The completed list sits at the bottom */
+#completed-section {
+    flex-shrink: 0;    /* Don't squish */
+    max-height: 30%;   /* Don't take more than 30% of height */
+    overflow-y: auto;  /* Scroll if needed */
+}
+
+#completedList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* SCROLLBARS */
+ul::-webkit-scrollbar, #completed-section::-webkit-scrollbar {
     width: 6px;
 }
-ul::-webkit-scrollbar-thumb {
+ul::-webkit-scrollbar-thumb, #completed-section::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 3px;
 }
-ul::-webkit-scrollbar-track {
-    background: transparent;
-}
 
+/* TASK ITEMS */
 li {
     background: white;
     margin-bottom: 8px;
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #f0f0f0;
-    cursor: pointer;
     transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
     font-size: 14px;
     color: #333;
+    /* Note: 'display: flex' is handled by JS inline styles mostly, 
+       but we keep defaults here for safety */
 }
 
 li:hover {
@@ -172,15 +172,7 @@ li:hover {
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* Completed State */
-li.done {
-    text-decoration: line-through;
-    color: #a0a0a0;
-    background: #f8f9fa;
-    border-color: transparent;
-}
-
-/* Tiny green dot for active tasks */
+/* THE GREEN DOT */
 li::before {
     content: '';
     display: inline-block;
@@ -190,8 +182,15 @@ li::before {
     background: #4cd964;
     margin-right: 12px;
     flex-shrink: 0;
+    margin-top: 6px; /* Pushes dot down to align with text */
 }
 
-li.done::before {
-    background: #d1d1d6;
+/* COMPLETED ITEMS STYLE */
+#completedList li {
+    opacity: 0.8;
+    background: #f9f9f9;
+}
+
+#completedList li::before {
+    background: #d1d1d6; /* Gray dot for done tasks */
 }
